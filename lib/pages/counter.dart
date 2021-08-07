@@ -217,10 +217,10 @@ class _Count extends State<Count> {
                                     onPressed: () {
                                       setState(() {
                                         FocusScope.of(context).unfocus();
-                                        // Save.denominations[i].controller.text = (int.parse(Save.denominations[i].controller.text) - 1).toString();
-                                        if (Save.denominations[i].count > 0)
+                                        if (Save.denominations[i].count > 0) {
                                           Save.denominations[i].count--;
-                                        // debugRefresh(i);
+                                          textControllersRefresh(i);
+                                        }
                                       });
                                     },
                                   ),
