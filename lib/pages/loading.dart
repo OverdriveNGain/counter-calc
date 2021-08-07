@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:calc/scripts/theme.dart';
 import 'package:calc/scripts/save.dart';
 
 class Loading extends StatelessWidget {
@@ -15,10 +14,11 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     loadData(context);
 
+    final cs = Theme.of(context).colorScheme;
     return Container(
-      color: Themes.accent,
+      color: cs.background,
       child: SpinKitRotatingCircle(
-        color: Colors.white,
+        color: cs.primary,
       ),
     );
   }
