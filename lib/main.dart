@@ -14,7 +14,7 @@ void main() {
       secondaryVariant: Colors.red[300],
       surface: Colors.white,
       onSurface: Colors.black,
-      background: Colors.grey[50],
+      background: Colors.grey[100],
       onBackground: Colors.black,
       onError: Colors.white,
       onPrimary: Colors.white,
