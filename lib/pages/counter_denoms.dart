@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:calc/scripts/theme.dart';
 import 'package:calc/scripts/func.dart';
 import 'package:flutter/services.dart';
 import 'package:calc/scripts/save.dart';
@@ -30,14 +29,14 @@ class _CounterDenominationsState extends State<CounterDenominations> {
             TextButton(onPressed: () {
               Navigator.pop(context);
             },
-              child: Text("No", style: TextStyle( color: Themes.accent)),
+              child: Text("No"),
             ),
             TextButton(onPressed: () {
               denominations = Denomination.defaultDenom;
               Navigator.pop(context);
               setState((){});
             },
-              child: Text("Yes", style: TextStyle( color: Themes.accent)),
+              child: Text("Yes"),
             ),
           ],
         );
@@ -52,7 +51,6 @@ class _CounterDenominationsState extends State<CounterDenominations> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit denominations"),
-        backgroundColor: Themes.accent,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -69,18 +67,18 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                     TextButton(onPressed: () {
                       Navigator.pop(context);
                     },
-                      child: Text("Back", style: TextStyle( color: Themes.accent)),
+                      child: Text("Back"),
                     ),
                     TextButton(onPressed: () {
                       Navigator.pop(context);
                       Navigator.pop(context);
                     },
-                      child: Text("Revert", style: TextStyle( color: Themes.accent)),
+                      child: Text("Revert"),
                     ),
                     TextButton(onPressed: () {
                       backToHome();
                     },
-                      child: Text("Save", style: TextStyle( color: Themes.accent)),
+                      child: Text("Save"),
                     ),
                   ],
                 );
@@ -98,7 +96,7 @@ class _CounterDenominationsState extends State<CounterDenominations> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor: Themes.accent,
+        // backgroundColor: Themes.accent,
         onPressed: () {
           showDialog(
             barrierDismissible: false,
@@ -114,7 +112,7 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                   TextButton(onPressed: () {
                     Navigator.pop(context);
                   },
-                    child: Text("Cancel", style: TextStyle( color: Themes.accent)),
+                    child: Text("Cancel"),
                   ),
                   TextButton(onPressed: () {
                     print("value is " + tec.text.toString());
@@ -124,7 +122,7 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                     });
                     Navigator.pop(context);
                   },
-                    child: Text("Confirm", style: TextStyle( color: Themes.accent)),
+                    child: Text("Confirm"),
                   ),
                 ],
               );
@@ -133,7 +131,7 @@ class _CounterDenominationsState extends State<CounterDenominations> {
         },
       ),
       body: Container(
-        color:Themes.secondary,
+        // color:Themes.secondary,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ReorderableListView(
@@ -143,7 +141,7 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                   "Drag to reorder",
                   style: TextStyle(
                     fontSize: 15,
-                    color:Themes.words,
+                    // color:Themes.words,
                   ),
               )
             ),
@@ -165,11 +163,11 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                       doubleMinimize(denominations[i].value),
                       style: TextStyle(
                         fontSize: 15,
-                        color: Themes.words,
+                        // color: Themes.words,
                       ),
                     ),
                     trailing: PopupMenuButton(
-                      icon: Icon(Icons.settings, color: Themes.accent),
+                      icon: Icon(Icons.settings),
                       onSelected: (s) {
                         if (s == "remove"){
                           setState((){denominations.removeAt(i);});
@@ -192,7 +190,7 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                                   TextButton(onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                    child: Text("Cancel", style: TextStyle( color: Themes.accent)),
+                                    child: Text("Cancel"),
                                   ),
                                   TextButton(onPressed: () {
                                     double f = double.parse(tec.text.toString());
@@ -201,7 +199,7 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                                     });
                                     Navigator.pop(context);
                                   },
-                                    child: Text("Confirm", style: TextStyle( color: Themes.accent)),
+                                    child: Text("Confirm"),
                                   ),
                                 ],
                               );

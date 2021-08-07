@@ -10,15 +10,15 @@ void main() {
     theme: ThemeData.from(colorScheme: ColorScheme(
       primary: Colors.red,
       primaryVariant: Colors.red[300],
-      secondary: Colors.lightBlueAccent,
-      secondaryVariant: Colors.lightBlueAccent[200],
+      secondary: Colors.red,
+      secondaryVariant: Colors.red[300],
       surface: Colors.white,
       onSurface: Colors.black,
       background: Colors.grey[50],
       onBackground: Colors.black,
       onError: Colors.white,
       onPrimary: Colors.white,
-      onSecondary: Colors.blue,
+      onSecondary: Colors.white,
       brightness: Brightness.light,
       error: Colors.purple
     )),
