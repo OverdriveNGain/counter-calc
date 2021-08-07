@@ -1,4 +1,3 @@
-import 'package:calc/scripts/func.dart';
 import 'package:flutter/material.dart';
 import 'package:calc/scripts/theme.dart';
 import 'package:calc/pages/calculator.dart';
