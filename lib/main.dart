@@ -17,7 +17,7 @@ void main() {
       background: Colors.grey[50],
       onBackground: Colors.black,
       onError: Colors.white,
-      onPrimary: Colors.black,
+      onPrimary: Colors.white,
       onSecondary: Colors.blue,
       brightness: Brightness.light,
       error: Colors.purple

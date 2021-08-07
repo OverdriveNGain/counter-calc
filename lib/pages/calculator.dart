@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:calc/scripts/theme.dart';
 import 'package:calc/scripts/func.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -90,7 +89,7 @@ class _CalcState extends State<Calc> {
     Save.saveCalc();
   }
 
-  Widget getButton(String addToSeq, {Widget child, String childText, Color buttonColor}){
+  Widget getButton(String addToSeq, Color buttonColor, {Widget child, String childText}){
     if (child != null && childText != null)
       throw Exception("Only one of child and childText should non-null");
     if (child == null && childText == null)
@@ -100,9 +99,8 @@ class _CalcState extends State<Calc> {
       Text(
         childText,
         style: TextStyle(
-          color: Themes
-              .words,
           fontSize: 50,
+          color: Colors.black
         ),
       ):
       child;
@@ -112,7 +110,7 @@ class _CalcState extends State<Calc> {
         margin: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: buttonColor == null?Themes.primary:buttonColor,
+            primary: buttonColor,
           ),
           onPressed: (){
             CalcSta.seq += addToSeq;
@@ -126,10 +124,15 @@ class _CalcState extends State<Calc> {
 
   @override
   Widget build(BuildContext context) {
+
+    final cs = Theme.of(context).colorScheme;
+    final normalButtonColor = Colors.white;
+    final equalsButtonColor = cs.primary;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Calculator"),
-        backgroundColor: Themes.accent,
+        // backgroundColor: Themes.accent,
         actions: [
           IconButton(
             icon: Icon(Icons.undo),
@@ -157,12 +160,12 @@ class _CalcState extends State<Calc> {
         ],
       ),
       body: Container(
-        color: Themes.secondary,
+        // color: Themes.secondary,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget> [
-            Expanded( // Top Result
-              flex: 1,
+            Container( // Top Result
+              height:100,
               child: GestureDetector(
                 onLongPress: () {
                   Clipboard.setData(ClipboardData(text: Save.calcDisp));
@@ -182,8 +185,8 @@ class _CalcState extends State<Calc> {
                     padding: EdgeInsets.all(10.0),
                     alignment: Alignment.centerRight,
                     decoration: BoxDecoration(
-                      color: Themes.primary,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: Colors.white,
+                      // borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     ),
                     child: AutoSizeText(
                       Save.calcDisp.replaceAll("*", "×").replaceAll("/", "÷"),
@@ -210,10 +213,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          getButton("7"),
-                          getButton("8"),
-                          getButton("9"),
-                          getButton("C"),
+                          getButton("7", normalButtonColor),
+                          getButton("8", normalButtonColor),
+                          getButton("9", normalButtonColor),
+                          getButton("C", normalButtonColor),
                         ],
                       ),
                     ),
@@ -222,10 +225,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          getButton("4"),
-                          getButton("5"),
-                          getButton("6"),
-                          getButton("*", childText:"×"),
+                          getButton("4", normalButtonColor),
+                          getButton("5", normalButtonColor),
+                          getButton("6", normalButtonColor),
+                          getButton("*", normalButtonColor, childText:"×"),
                         ],
                       ),
                     ),
@@ -234,10 +237,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          getButton("1"),
-                          getButton("2"),
-                          getButton("3"),
-                          getButton("/", childText:"÷"),
+                          getButton("1", normalButtonColor),
+                          getButton("2", normalButtonColor),
+                          getButton("3", normalButtonColor),
+                          getButton("/", normalButtonColor, childText:"÷"),
                         ],
                       ),
                     ),
@@ -246,10 +249,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          getButton("."),
-                          getButton("0"),
-                          getButton("+"),
-                          getButton("-"),
+                          getButton(".", normalButtonColor),
+                          getButton("0", normalButtonColor),
+                          getButton("+", normalButtonColor),
+                          getButton("-", normalButtonColor),
                         ],
                       ),
                     ),
@@ -258,16 +261,16 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          getButton("("),
-                          getButton(")"),
-                          getButton("~", child: Icon(Icons.backspace, color: Themes.words, size: 35)),
+                          getButton("(", normalButtonColor),
+                          getButton(")", normalButtonColor),
+                          getButton("~", normalButtonColor, child: Icon(Icons.backspace, size: 35, color: Colors.black)),
                           getButton(
-                            "=",
-                            buttonColor: Themes.accent,
+                            "=", equalsButtonColor,
+                            // buttonColor: Themes.accent,
                             child: Text(
                               "=",
                               style: TextStyle(
-                                color: Themes.primary,
+                                color: cs.onPrimary,
                                 fontSize: 50,
                             ),
                           )),
