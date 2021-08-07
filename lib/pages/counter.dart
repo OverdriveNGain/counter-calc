@@ -161,30 +161,36 @@ class _Count extends State<Count> {
                                 ),
                               ),
                               Expanded(
-                                flex: 4,
+                                flex: 5,
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      flex:2,
-                                      child: TextFormField(
-                                        style: TextStyle(
-                                          color: Themes.words,
+                                      flex:3,
+                                      child: Container(
+                                        margin: EdgeInsets.all(5.0),
+                                        child: TextFormField(
+                                          style: TextStyle(
+                                            color: Themes.words,
+                                          ),
+                                          cursorColor: Theme.of(context).colorScheme.primary,
+                                          controller: denominationControllers[i],
+                                          maxLines: 1,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                          textInputAction: TextInputAction.next,
+                                          textAlign: TextAlign.center,
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            focusColor: Themes.accent,
+                                            fillColor: Colors.grey[100],
+                                            border: OutlineInputBorder(borderSide: BorderSide.none)
+                                          ),
+                                          onChanged: (s){
+                                            setState(() {
+                                              Save.denominations[i].count = int.parse(s);
+                                            });
+                                          },
                                         ),
-                                        controller: denominationControllers[i],
-                                        maxLines: 1,
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                        textInputAction: TextInputAction.next,
-                                        textAlign: TextAlign.center,
-                                        // cursorColor: Themes.accent,
-                                        decoration: InputDecoration(
-                                          focusColor: Themes.accent,
-                                        ),
-                                        onChanged: (s){
-                                          setState(() {
-                                            Save.denominations[i].count = int.parse(s);
-                                          });
-                                        },
                                       ),
                                     ),
                                     Expanded(
