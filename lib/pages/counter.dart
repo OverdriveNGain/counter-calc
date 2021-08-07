@@ -139,110 +139,109 @@ class _Count extends State<Count> {
               child: Container(
                 margin: EdgeInsets.fromLTRB(8.0, 0, 8,8),
                 color: Themes.secondary,
-                child: ListView.builder(
-                  itemCount: Save.denominations.length,
-                  itemBuilder: (context, i) {
-                    return Card(
-                      color: Themes.primary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                      elevation:2.0,
-                      child: Container(
-                        // padding: EdgeInsets.symmetric(vertical:2.0, horizontal:12.0),
-                        padding: EdgeInsets.fromLTRB(30, 2, 12, 2),
-                        child: Row(
-                          children: <Widget> [
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                doubleMinimize(Save.denominations[i].value),
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Themes.words,
+                child: SingleChildScrollView(
+                  // itemCount: Save.denominations.length,
+                  child: Column(children: List.generate(Save.denominations.length, (i) => Card(
+                        color: Themes.primary,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                        elevation:2.0,
+                        child: Container(
+                          // padding: EdgeInsets.symmetric(vertical:2.0, horizontal:12.0),
+                          padding: EdgeInsets.fromLTRB(30, 2, 12, 2),
+                          child: Row(
+                            children: <Widget> [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  doubleMinimize(Save.denominations[i].value),
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Themes.words,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex:2,
-                                    child: TextFormField(
-                                      style: TextStyle(
-                                        color: Themes.words,
+                              Expanded(
+                                flex: 4,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex:2,
+                                      child: TextFormField(
+                                        style: TextStyle(
+                                          color: Themes.words,
+                                        ),
+                                        controller: denominationControllers[i],
+                                        maxLines: 1,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                        textInputAction: TextInputAction.next,
+                                        textAlign: TextAlign.center,
+                                        // cursorColor: Themes.accent,
+                                        decoration: InputDecoration(
+                                          focusColor: Themes.accent,
+                                        ),
+                                        onChanged: (s){
+                                          setState(() {
+                                            Save.denominations[i].count = int.parse(s);
+                                          });
+                                        },
                                       ),
-                                      controller: denominationControllers[i],
-                                      maxLines: 1,
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                      textInputAction: TextInputAction.next,
-                                      textAlign: TextAlign.center,
-                                      // cursorColor: Themes.accent,
-                                      decoration: InputDecoration(
-                                        focusColor: Themes.accent,
+                                    ),
+                                    Expanded(
+                                      flex:3,
+                                      child: Text(
+                                        doubleMinimize(Save.denominations[i].getSumValue()).toString(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                          color: Themes.words,
+                                        ),
                                       ),
-                                      onChanged: (s){
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.replay_sharp, color: Themes.accent),
+                                      padding: EdgeInsets.all(0.0),
+                                      onPressed: () {
                                         setState(() {
-                                          Save.denominations[i].count = int.parse(s);
+                                          FocusScope.of(context).unfocus();
+                                          Save.denominations[i].count = 0;
+                                          textControllersRefresh(i);
                                         });
                                       },
                                     ),
-                                  ),
-                                  Expanded(
-                                    flex:3,
-                                    child: Text(
-                                      doubleMinimize(Save.denominations[i].getSumValue()).toString(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25,
-                                        color: Themes.words,
-                                      ),
+                                    IconButton(
+                                      icon: Icon(Icons.remove_circle, color: Themes.accent),
+                                      padding: EdgeInsets.all(0.0),
+                                      onPressed: () {
+                                        setState(() {
+                                          FocusScope.of(context).unfocus();
+                                          if (Save.denominations[i].count > 0) {
+                                            Save.denominations[i].count--;
+                                            textControllersRefresh(i);
+                                          }
+                                        });
+                                      },
                                     ),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.replay_sharp, color: Themes.accent),
-                                    padding: EdgeInsets.all(0.0),
-                                    onPressed: () {
-                                      setState(() {
-                                        FocusScope.of(context).unfocus();
-                                        Save.denominations[i].count = 0;
-                                        textControllersRefresh(i);
-                                      });
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.remove_circle, color: Themes.accent),
-                                    padding: EdgeInsets.all(0.0),
-                                    onPressed: () {
-                                      setState(() {
-                                        FocusScope.of(context).unfocus();
-                                        if (Save.denominations[i].count > 0) {
-                                          Save.denominations[i].count--;
+                                    IconButton(
+                                      icon: Icon(Icons.add_circle, color: Themes.accent),
+                                      padding: EdgeInsets.all(0.0),
+                                      onPressed: () {
+                                        setState(() {
+                                          FocusScope.of(context).unfocus();
+                                          Save.denominations[i].count++;
                                           textControllersRefresh(i);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.add_circle, color: Themes.accent),
-                                    padding: EdgeInsets.all(0.0),
-                                    onPressed: () {
-                                      setState(() {
-                                        FocusScope.of(context).unfocus();
-                                        Save.denominations[i].count++;
-                                        textControllersRefresh(i);
-                                      });
-                                    },
-                                  ),
-                                ],
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    );
-                  },
+                            ],
+                          ),
+                        )
+                    )
+                  ).toList()),
                 ),
               ),
             ),
