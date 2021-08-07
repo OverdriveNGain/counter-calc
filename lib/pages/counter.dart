@@ -19,20 +19,20 @@ String displayTotal(List<Denomination> denoms){
 }
 
 class _Count extends State<Count> {
-  List<TextEditingController> denomControllers;
+  List<TextEditingController> denominationControllers;
 
   void clearConfirmationDialog() {
     var d =  AlertDialog(
         title: Text("Reset?"),
         content: Text("Reset all fields?"),
         actions: [
-          FlatButton(
+          TextButton(
             child: Text("No", style: TextStyle( color: Themes.accent)),
             onPressed: (){
               Navigator.pop(context);
             },
           ),
-          FlatButton(
+          TextButton(
             child: Text("Yes", style: TextStyle( color: Themes.accent)),
             onPressed: () {
               Navigator.pop(context);
@@ -53,13 +53,13 @@ class _Count extends State<Count> {
   }
   void textControllersRefresh(int i){
     int count = Save.denominations[i].count;
-    denomControllers[i].text = count != 0?count.toString():"";
+    denominationControllers[i].text = count != 0?count.toString():"";
   }
 
   @override
   Widget build(BuildContext context){
-    if (denomControllers == null){
-      denomControllers = List.generate(Save.denominations.length, (n) { return TextEditingController();});
+    if (denominationControllers == null){
+      denominationControllers = List.generate(Save.denominations.length, (n) { return TextEditingController();});
       for (int i = 0; i < Save.denominations.length; i++){
         textControllersRefresh(i);
       }
@@ -82,7 +82,7 @@ class _Count extends State<Count> {
           // PopupMenuButton<String>(
           PopupMenuButton<String>(
             onSelected: (s) async {
-              if (s == "denom"){
+              if (s == "denominations"){
                 await Navigator.pushNamed(context, "/counter_denoms");
                 setState(() { });
               }
@@ -90,7 +90,7 @@ class _Count extends State<Count> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: Text("Edit denominations"),
-                value: "denom",
+                value: "denominations",
               ),
             ],
           ),
@@ -171,7 +171,7 @@ class _Count extends State<Count> {
                                       style: TextStyle(
                                         color: Themes.words,
                                       ),
-                                      controller: denomControllers[i],
+                                      controller: denominationControllers[i],
                                       maxLines: 1,
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
