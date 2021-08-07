@@ -131,7 +131,6 @@ class _CounterDenominationsState extends State<CounterDenominations> {
         },
       ),
       body: Container(
-        // color:Themes.secondary,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ReorderableListView(
@@ -155,8 +154,8 @@ class _CounterDenominationsState extends State<CounterDenominations> {
             },
             children: List.generate(denominations.length, (i) {
                 return Card(
-                  elevation:3.0,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  elevation:2.0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   key:ValueKey(denominations[i].value),
                   child: ListTile(
                     leading: Text(

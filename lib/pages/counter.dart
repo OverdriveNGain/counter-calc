@@ -139,7 +139,7 @@ class _Count extends State<Count> {
                 child: SingleChildScrollView(
                   // itemCount: Save.denominations.length,
                   child: Column(children: List.generate(Save.denominations.length, (i) => Card(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
                         elevation:2.0,
                         child: Container(
                           // padding: EdgeInsets.symmetric(vertical:2.0, horizontal:12.0),
