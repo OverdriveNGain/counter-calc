@@ -62,12 +62,11 @@ class _CounterDenominationsState extends State<CounterDenominations> {
               builder: (context) {
                 return AlertDialog(
                   title: Text("Confirm Changes?"),
-                  // content: Text("Save changes?"),
                   actions:[
                     TextButton(onPressed: () {
                       Navigator.pop(context);
                     },
-                      child: Text("Back"),
+                      child: Text("Cancel"),
                     ),
                     TextButton(onPressed: () {
                       Navigator.pop(context);
