@@ -13,9 +13,9 @@ class CalcSta{
   static Parser p = Parser();
   static String seq = "";
   static ContextModel cm = ContextModel();
-  static List<String> dispStack = List.generate(maxStack, (index) => "");
-  static int dispStackI = 0;
-  static int dispStackUpdatedUpToI = 0; // inclusive
+  static List<String> displayStack = List.generate(maxStack, (index) => "");
+  static int displayStackInteger = 0;
+  static int displayStackUpdatedUpToI = 0; // inclusive
 }
 
 class Calc extends StatefulWidget {
@@ -77,20 +77,20 @@ class _CalcState extends State<Calc> {
         Save.calcDisp = CalcSta.seq;
       });
 
-    if (CalcSta.dispStackUpdatedUpToI + 1 == CalcSta.maxStack){ // full stack
-      CalcSta.dispStack.removeAt(0);
-      CalcSta.dispStack.add(Save.calcDisp);
+    if (CalcSta.displayStackUpdatedUpToI + 1 == CalcSta.maxStack){ // full stack
+      CalcSta.displayStack.removeAt(0);
+      CalcSta.displayStack.add(Save.calcDisp);
     }
     else{ // not full stack
-      CalcSta.dispStackI++;
-      CalcSta.dispStackUpdatedUpToI = CalcSta.dispStackI;
-      CalcSta.dispStack[CalcSta.dispStackI] = Save.calcDisp;
+      CalcSta.displayStackInteger++;
+      CalcSta.displayStackUpdatedUpToI = CalcSta.displayStackInteger;
+      CalcSta.displayStack[CalcSta.displayStackInteger] = Save.calcDisp;
     }
 
     Save.saveCalc();
   }
 
-  Widget GetButton(String addToSeq, {Widget child, String childText, Color buttonColor}){
+  Widget getButton(String addToSeq, {Widget child, String childText, Color buttonColor}){
     if (child != null && childText != null)
       throw Exception("Only one of child and childText should non-null");
     if (child == null && childText == null)
@@ -110,10 +110,10 @@ class _CalcState extends State<Calc> {
     return Expanded(
       child: Container(
         margin: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
-        child: RaisedButton(
-          color: buttonColor == null?Themes.primary:buttonColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          elevation:2.0,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: buttonColor == null?Themes.primary:buttonColor,
+          ),
           onPressed: (){
             CalcSta.seq += addToSeq;
             updateScreen();
@@ -133,23 +133,23 @@ class _CalcState extends State<Calc> {
         actions: [
           IconButton(
             icon: Icon(Icons.undo),
-            onPressed: (CalcSta.dispStackI == 0)? null: () {
+            onPressed: (CalcSta.displayStackInteger == 0)? null: () {
               setState(() {
-                CalcSta.dispStackI--;
-                String disp = CalcSta.dispStack[CalcSta.dispStackI];
-                Save.calcDisp = disp;
-                CalcSta.seq = disp;
+                CalcSta.displayStackInteger--;
+                String display = CalcSta.displayStack[CalcSta.displayStackInteger];
+                Save.calcDisp = display;
+                CalcSta.seq = display;
                 setState((){});
               });},
           ),
           IconButton(
             icon: Icon(Icons.redo),
-            onPressed: (CalcSta.dispStackI == CalcSta.dispStackUpdatedUpToI)? null: () {
+            onPressed: (CalcSta.displayStackInteger == CalcSta.displayStackUpdatedUpToI)? null: () {
               setState(() {
-                CalcSta.dispStackI++;
-                String disp = CalcSta.dispStack[CalcSta.dispStackI];
-                Save.calcDisp = disp;
-                CalcSta.seq = disp;
+                CalcSta.displayStackInteger++;
+                String display = CalcSta.displayStack[CalcSta.displayStackInteger];
+                Save.calcDisp = display;
+                CalcSta.seq = display;
                 setState((){});
               });}
             ,
@@ -210,10 +210,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          GetButton("7"),
-                          GetButton("8"),
-                          GetButton("9"),
-                          GetButton("C"),
+                          getButton("7"),
+                          getButton("8"),
+                          getButton("9"),
+                          getButton("C"),
                         ],
                       ),
                     ),
@@ -222,10 +222,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          GetButton("4"),
-                          GetButton("5"),
-                          GetButton("6"),
-                          GetButton("*", childText:"×"),
+                          getButton("4"),
+                          getButton("5"),
+                          getButton("6"),
+                          getButton("*", childText:"×"),
                         ],
                       ),
                     ),
@@ -234,10 +234,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          GetButton("1"),
-                          GetButton("2"),
-                          GetButton("3"),
-                          GetButton("/", childText:"÷"),
+                          getButton("1"),
+                          getButton("2"),
+                          getButton("3"),
+                          getButton("/", childText:"÷"),
                         ],
                       ),
                     ),
@@ -246,10 +246,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          GetButton("."),
-                          GetButton("0"),
-                          GetButton("+"),
-                          GetButton("-"),
+                          getButton("."),
+                          getButton("0"),
+                          getButton("+"),
+                          getButton("-"),
                         ],
                       ),
                     ),
@@ -258,10 +258,10 @@ class _CalcState extends State<Calc> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget> [
-                          GetButton("("),
-                          GetButton(")"),
-                          GetButton("~", child: Icon(Icons.backspace, color: Themes.words, size: 35)),
-                          GetButton(
+                          getButton("("),
+                          getButton(")"),
+                          getButton("~", child: Icon(Icons.backspace, color: Themes.words, size: 35)),
+                          getButton(
                             "=",
                             buttonColor: Themes.accent,
                             child: Text(
