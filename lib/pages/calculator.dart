@@ -186,7 +186,7 @@ class _CalcState extends State<Calc> {
                       borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     ),
                     child: AutoSizeText(
-                      Save.calcDisp,
+                      Save.calcDisp.replaceAll("*", "×").replaceAll("/", "÷"),
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontSize: 55,
@@ -225,7 +225,7 @@ class _CalcState extends State<Calc> {
                           GetButton("4"),
                           GetButton("5"),
                           GetButton("6"),
-                          GetButton("*"),
+                          GetButton("*", childText:"×"),
                         ],
                       ),
                     ),
@@ -237,7 +237,7 @@ class _CalcState extends State<Calc> {
                           GetButton("1"),
                           GetButton("2"),
                           GetButton("3"),
-                          GetButton("/"),
+                          GetButton("/", childText:"÷"),
                         ],
                       ),
                     ),
