@@ -4,40 +4,36 @@ import 'package:calc/scripts/func.dart';
 import 'package:flutter/services.dart';
 import 'package:calc/scripts/save.dart';
 
-class CounterDenoms extends StatefulWidget {
+class CounterDenominations extends StatefulWidget {
   @override
-  _CounterDenomsState createState() => _CounterDenomsState();
+  _CounterDenominationsState createState() => _CounterDenominationsState();
 }
 
-class _CounterDenomsState extends State<CounterDenoms> {
-  List<Denomination> denoms;
+class _CounterDenominationsState extends State<CounterDenominations> {
+  List<Denomination> denominations;
 
   void backToHome() async {
-    Save.denominations = denoms;
+    Save.denominations = denominations;
     await Save.saveDenominations();
     Navigator.pop(context);
     Navigator.pop(context);
   }
 
-  Future<void> RestoreConfirm() async{
+  Future<void> restoreConfirm() async{
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        TextEditingController tec = TextEditingController();
         return AlertDialog(
           title: Text("Restore default values?"),
-          // content: TextFormField(
-          //   controller: tec,
-          // ),
           actions: [
-            FlatButton(onPressed: () {
+            TextButton(onPressed: () {
               Navigator.pop(context);
             },
               child: Text("No", style: TextStyle( color: Themes.accent)),
             ),
-            FlatButton(onPressed: () {
-              denoms = Denomination.defaultDenom;
+            TextButton(onPressed: () {
+              denominations = Denomination.defaultDenom;
               Navigator.pop(context);
               setState((){});
             },
@@ -51,7 +47,7 @@ class _CounterDenomsState extends State<CounterDenoms> {
 
   @override
   Widget build(BuildContext context) {
-     denoms ??= Save.denominations.map((i) {return i.copy();}).toList();
+     denominations ??= Save.denominations.map((i) {return i.copy();}).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -70,18 +66,18 @@ class _CounterDenomsState extends State<CounterDenoms> {
                   title: Text("Confirm Changes?"),
                   // content: Text("Save changes?"),
                   actions:[
-                    FlatButton(onPressed: () {
+                    TextButton(onPressed: () {
                       Navigator.pop(context);
                     },
                       child: Text("Back", style: TextStyle( color: Themes.accent)),
                     ),
-                    FlatButton(onPressed: () {
+                    TextButton(onPressed: () {
                       Navigator.pop(context);
                       Navigator.pop(context);
                     },
                       child: Text("Revert", style: TextStyle( color: Themes.accent)),
                     ),
-                    FlatButton(onPressed: () {
+                    TextButton(onPressed: () {
                       backToHome();
                     },
                       child: Text("Save", style: TextStyle( color: Themes.accent)),
@@ -95,7 +91,7 @@ class _CounterDenomsState extends State<CounterDenoms> {
         actions: [
           IconButton(
               onPressed: () {
-                RestoreConfirm();
+                restoreConfirm();
                 },
               icon: Icon(Icons.restore))
         ],
@@ -115,16 +111,16 @@ class _CounterDenomsState extends State<CounterDenoms> {
                   controller: tec,
                 ),
                 actions:[
-                  FlatButton(onPressed: () {
+                  TextButton(onPressed: () {
                     Navigator.pop(context);
                   },
                     child: Text("Cancel", style: TextStyle( color: Themes.accent)),
                   ),
-                  FlatButton(onPressed: () {
+                  TextButton(onPressed: () {
                     print("value is " + tec.text.toString());
                     double f = double.parse(tec.text.toString());
                     setState(() {
-                      denoms.add(Denomination(f));
+                      denominations.add(Denomination(f));
                     });
                     Navigator.pop(context);
                   },
@@ -152,21 +148,21 @@ class _CounterDenomsState extends State<CounterDenoms> {
               )
             ),
             onReorder: (i, j) {
-              Denomination k = denoms[i];
-              denoms.removeAt(i);
+              Denomination k = denominations[i];
+              denominations.removeAt(i);
               int newIndex = i < j?j - 1:j;
-              denoms.insert(newIndex, k);
+              denominations.insert(newIndex, k);
 
               setState(() { });
             },
-            children: List.generate(denoms.length, (i) {
+            children: List.generate(denominations.length, (i) {
                 return Card(
                   elevation:3.0,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  key:ValueKey(denoms[i].value),
+                  key:ValueKey(denominations[i].value),
                   child: ListTile(
                     leading: Text(
-                      doubleMinimize(denoms[i].value),
+                      doubleMinimize(denominations[i].value),
                       style: TextStyle(
                         fontSize: 15,
                         color: Themes.words,
@@ -176,7 +172,7 @@ class _CounterDenomsState extends State<CounterDenoms> {
                       icon: Icon(Icons.settings, color: Themes.accent),
                       onSelected: (s) {
                         if (s == "remove"){
-                          setState((){denoms.removeAt(i);});
+                          setState((){denominations.removeAt(i);});
                         }
                         else if (s == "change"){
                           showDialog(
@@ -184,7 +180,7 @@ class _CounterDenomsState extends State<CounterDenoms> {
                             context: context,
                             builder: (context) {
                               TextEditingController tec = TextEditingController();
-                              tec.text = doubleMinimize(denoms[i].value) ;
+                              tec.text = doubleMinimize(denominations[i].value) ;
                               return AlertDialog(
                                 title: Text("Change existing value:"),
                                 content:TextFormField(
@@ -193,15 +189,15 @@ class _CounterDenomsState extends State<CounterDenoms> {
                                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                 ),
                                 actions:[
-                                  FlatButton(onPressed: () {
+                                  TextButton(onPressed: () {
                                     Navigator.pop(context);
                                   },
                                     child: Text("Cancel", style: TextStyle( color: Themes.accent)),
                                   ),
-                                  FlatButton(onPressed: () {
+                                  TextButton(onPressed: () {
                                     double f = double.parse(tec.text.toString());
                                     setState(() {
-                                      denoms[i].value = f;
+                                      denominations[i].value = f;
                                     });
                                     Navigator.pop(context);
                                   },

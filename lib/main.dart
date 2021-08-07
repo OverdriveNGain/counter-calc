@@ -13,7 +13,7 @@ void main() {
   runApp(MaterialApp(
     routes: {
       "/": (context) => Loading(),
-      "/counter_denoms": (context) => CounterDenoms(),
+      "/counter_denoms": (context) => CounterDenominations(),
       "/home": (context) => HomePage()
     },
   ));
