@@ -131,16 +131,16 @@ class _CounterDenominationsState extends State<CounterDenominations> {
         },
       ),
       body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ReorderableListView(
+        child: ReorderableListView(
+            padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
             header: Padding(
               padding: EdgeInsets.all(15.0),
               child: Text(
-                  "Drag to reorder",
+                  "Drag to reorder denominations",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
-                    // color:Themes.words,
+                    color: Colors.black.withAlpha(70),
                   ),
               )
             ),
@@ -217,7 +217,6 @@ class _CounterDenominationsState extends State<CounterDenominations> {
                 );
               })
           ),
-        ),
       ),
     );
   }
