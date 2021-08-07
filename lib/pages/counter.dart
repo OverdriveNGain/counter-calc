@@ -22,7 +22,7 @@ class _Count extends State<Count> {
 
   void clearConfirmationDialog() {
     var d = AlertDialog(
-        title: Text("Reset?"),
+        title: Text("Reset"),
         content: Text("Reset all fields?"),
         actions: [
           TextButton(
