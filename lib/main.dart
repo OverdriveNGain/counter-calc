@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:calc/scripts/theme.dart';
 import 'package:calc/pages/calculator.dart';
 import 'package:calc/pages/counter.dart';
 import 'package:calc/pages/counter_denoms.dart';
@@ -7,9 +6,22 @@ import 'package:calc/pages/loading.dart';
 import 'package:calc/scripts/save.dart';
 
 void main() {
-  Themes.setTheme(themeMode.Default);
-
   runApp(MaterialApp(
+    theme: ThemeData.from(colorScheme: ColorScheme(
+      primary: Colors.red,
+      primaryVariant: Colors.red[300],
+      secondary: Colors.lightBlueAccent,
+      secondaryVariant: Colors.lightBlueAccent[200],
+      surface: Colors.white,
+      onSurface: Colors.black,
+      background: Colors.grey[50],
+      onBackground: Colors.black,
+      onError: Colors.white,
+      onPrimary: Colors.black,
+      onSecondary: Colors.blue,
+      brightness: Brightness.light,
+      error: Colors.purple
+    )),
     routes: {
       "/": (context) => Loading(),
       "/counter_denoms": (context) => CounterDenominations(),
@@ -42,7 +54,7 @@ class _HomePageState extends State<HomePage> {
         // backgroundColor: Themes.primary,
         // unselectedItemColor: Themes.accent,
         // selectedItemColor: lighten(Themes.accent, 0.75),
-        fixedColor: Themes.accent,
+        // fixedColor: Themes.accent,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.money), label: "Counter"),
           BottomNavigationBarItem(icon: Icon(Icons.calculate), label: "Calculator"),

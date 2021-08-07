@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:calc/scripts/theme.dart';
 import 'package:calc/scripts/func.dart';
 import 'package:flutter/services.dart';
 import 'package:calc/scripts/save.dart';
@@ -27,13 +26,13 @@ class _Count extends State<Count> {
         content: Text("Reset all fields?"),
         actions: [
           TextButton(
-            child: Text("No", style: TextStyle( color: Themes.accent)),
+            child: Text("No"),
             onPressed: (){
               Navigator.pop(context);
             },
           ),
           TextButton(
-            child: Text("Yes", style: TextStyle( color: Themes.accent)),
+            child: Text("Yes"),
             onPressed: () {
               Navigator.pop(context);
               setState(() {
@@ -65,11 +64,11 @@ class _Count extends State<Count> {
       }
     }
 
+    ColorScheme cs = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Counter"),
-        backgroundColor: Themes.accent,
         actions: [
           IconButton(
             onPressed: (){
@@ -97,7 +96,6 @@ class _Count extends State<Count> {
         ],
       ),
       body: Container(
-        color: Themes.secondary,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -120,13 +118,13 @@ class _Count extends State<Count> {
                   child: Container(
                     alignment: Alignment.center,
                     decoration:BoxDecoration(
-                      color:Themes.primary,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      // borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: cs.surface
                     ),
                     child: Text(
                       displayTotal(Save.denominations),
                       style: TextStyle(
-                        color: Colors.grey[600],
+                        color: cs.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 50,
                       ),
@@ -138,11 +136,9 @@ class _Count extends State<Count> {
             Expanded(
               child: Container(
                 margin: EdgeInsets.fromLTRB(8.0, 0, 8,8),
-                color: Themes.secondary,
                 child: SingleChildScrollView(
                   // itemCount: Save.denominations.length,
                   child: Column(children: List.generate(Save.denominations.length, (i) => Card(
-                        color: Themes.primary,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                         elevation:2.0,
                         child: Container(
@@ -155,8 +151,7 @@ class _Count extends State<Count> {
                                 child: Text(
                                   doubleMinimize(Save.denominations[i].value),
                                   style: TextStyle(
-                                    fontSize: 15,
-                                    color: Themes.words,
+                                    fontSize: 15
                                   ),
                                 ),
                               ),
@@ -169,9 +164,6 @@ class _Count extends State<Count> {
                                       child: Container(
                                         margin: EdgeInsets.all(5.0),
                                         child: TextFormField(
-                                          style: TextStyle(
-                                            color: Themes.words,
-                                          ),
                                           cursorColor: Theme.of(context).colorScheme.primary,
                                           controller: denominationControllers[i],
                                           maxLines: 1,
@@ -181,7 +173,6 @@ class _Count extends State<Count> {
                                           textAlign: TextAlign.center,
                                           decoration: InputDecoration(
                                             filled: true,
-                                            focusColor: Themes.accent,
                                             fillColor: Colors.grey[100],
                                             border: OutlineInputBorder(borderSide: BorderSide.none)
                                           ),
@@ -201,12 +192,11 @@ class _Count extends State<Count> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25,
-                                          color: Themes.words,
                                         ),
                                       ),
                                     ),
                                     IconButton(
-                                      icon: Icon(Icons.replay_sharp, color: Themes.accent),
+                                      icon: Icon(Icons.replay_sharp, color: cs.primary),
                                       padding: EdgeInsets.all(0.0),
                                       onPressed: () {
                                         setState(() {
@@ -217,7 +207,7 @@ class _Count extends State<Count> {
                                       },
                                     ),
                                     IconButton(
-                                      icon: Icon(Icons.remove_circle, color: Themes.accent),
+                                      icon: Icon(Icons.remove_circle, color: cs.primary),
                                       padding: EdgeInsets.all(0.0),
                                       onPressed: () {
                                         setState(() {
@@ -230,7 +220,7 @@ class _Count extends State<Count> {
                                       },
                                     ),
                                     IconButton(
-                                      icon: Icon(Icons.add_circle, color: Themes.accent),
+                                      icon: Icon(Icons.add_circle, color: cs.primary),
                                       padding: EdgeInsets.all(0.0),
                                       onPressed: () {
                                         setState(() {
